@@ -22,6 +22,29 @@ async function CargarAlumnos() {
             actionsCell.innerHTML = `<button onclick="editarEstudiante(${est.id})">Editar</button> <button onclick="eliminarPost(${est.id})">Eliminar</button>`;
             tabla.appendChild(row);
         });
+        window.addEventListener("DOMContentLoaded",()=>{
+        
+        const data = localStorage.getItem("newPOST");
+        if (data) {
+            const response = JSON.parse(data)
+            
+            const tabla = document.getElementById('tabla');
+            const row = tabla.insertRow();
+            const idCell = row.insertCell(0);
+            const titleCell = row.insertCell(1);
+            const bodyCell = row.insertCell(2);
+            const actionsCell = row.insertCell(3);
+            
+            row.setAttribute('id',response.id);
+            idCell.innerHTML = response.id;
+            titleCell.innerHTML = response.title;
+            bodyCell.innerHTML = response.body;
+            actionsCell.innerHTML = `<button onclick="editarEstudiante(${response.id})">Editar</button> <button onclick="eliminarPost(${response.id})">Eliminar</button>`;
+            tabla.appendChild(row);
+            
+            localStorage.removeItem("newPOST");
+        }
+    })
 
     } catch(error){
         console.error("Error al cargar estudiante",error)
@@ -78,34 +101,5 @@ async function eliminarPost(id){
 var counter = 0;
 
 window.onload = () =>{
-    if (counter == 0) {
         CargarAlumnos();
-        console.log(counter);
-        counter++;
-    }
-    console.log(counter);
-    
-    window.addEventListener("DOMContentLoaded",()=>{
-        
-        const data = localStorage.getItem("newPOST");
-        if (data) {
-            const response = JSON.parse(data)
-            
-            const tabla = document.getElementById('tabla');
-            const row = tabla.insertRow();
-            const idCell = row.insertCell(0);
-            const titleCell = row.insertCell(1);
-            const bodyCell = row.insertCell(2);
-            const actionsCell = row.insertCell(3);
-            
-            row.setAttribute('id',response.id);
-            idCell.innerHTML = response.id;
-            titleCell.innerHTML = response.title;
-            bodyCell.innerHTML = response.body;
-            actionsCell.innerHTML = `<button onclick="editarEstudiante(${response.id})">Editar</button> <button onclick="eliminarPost(${response.id})">Eliminar</button>`;
-            tabla.appendChild(row);
-            
-            localStorage.removeItem("newPOST");
-        }
-    })
 }
