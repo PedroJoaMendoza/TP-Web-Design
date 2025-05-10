@@ -5,6 +5,7 @@ body{
 }
 
 h1{
+    text-align: center;
     color: #333;
 }
 
@@ -12,6 +13,7 @@ table{
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    border:7px none black;
 }
 
 th,td{
@@ -25,4 +27,9 @@ th{
 button{
     padding: 5px 10px;
     margin: 5px;
+}
+.buttons{
+    display: flexbox ;
+    width: 100%;
+    text-align: center;
 }

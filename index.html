@@ -10,8 +10,11 @@
     
     <h1>Listado de Textos</h1>
 
-    <button onclick="window.location.href='add-student.html'">Agregar Linea</button>
-    
+    <div class="buttons">
+        <button onclick="window.location.href='add-student.html'">Agregar Linea</button>
+        <button onclick="ResetAll()">Reiniciar Data</button>
+    </div>
+
     <table id="studentTable">
         <thead>
             <tr>
@@ -21,10 +24,9 @@
                 <th>Actions</th>
             </tr>
         </thead>
-        <tbody id="tabla">
-
-        </tbody>
+        <tbody id="tabla"></tbody>
     </table>
+
     <script src="script.js"></script>
 </body>
 </html>
