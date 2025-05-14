@@ -18,6 +18,20 @@ if (formulario) {
             body: document.getElementById("body").value,
         };
         try {
+            const response = await fetch(`${API_URL}/posts`,{
+                method: "POST",
+                body: JSON.stringify({
+                    title:'foo',
+                    body:'bar',
+                    userId:'1',
+                }),
+                headers:{
+                    'Content-type':'application/json; charset=UTF-8',
+                },
+            })
+            .then((response)=>response.json())
+            .then((json)=> console.log(json));
+            
             const localPosts = JSON.parse(localStorage.getItem("localPosts")) || [];
             localPosts.unshift(newPOST);
             localStorage.setItem("localPosts", JSON.stringify(localPosts));
