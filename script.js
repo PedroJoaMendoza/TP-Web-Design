@@ -34,7 +34,7 @@ if (formulario) {
             
             const localPosts = JSON.parse(localStorage.getItem("localPosts")) || [];
             localPosts.unshift(newPOST);
-            localStorage.setItem("localPosts", JSON.stringify(localPosts));
+            localStorage.setItem("localPost", JSON.stringify(localPosts));
 
             alert("Linea agregado correctamente.");
             window.location.href = "index.html";
