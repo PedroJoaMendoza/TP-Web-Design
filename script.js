@@ -12,19 +12,20 @@ function ResetAll() {
 if (formulario) {
     formulario.addEventListener("submit", async (e) => {
         e.preventDefault();
+        const response = await fetch(`${API_URL}/posts`);
+        const posts = await response.json();
+
+        const lastId = posts.length > 0 ? Math.max(...posts.map(p=>p.id)):0;
+        const newId = lastId + 1;
         const newPOST = {
-            id: Date.now(),
+            id: newId,
             title: document.getElementById("title").value,
             body: document.getElementById("body").value,
         };
         try {
-            const response = await fetch(`${API_URL}/posts`,{
+            await fetch(`${API_URL}/posts`,{
                 method: "POST",
-                body: JSON.stringify({
-                    title:'foo',
-                    body:'bar',
-                    userId:'1',
-                }),
+                body: JSON.stringify(newPOST), 
                 headers:{
                     'Content-type':'application/json; charset=UTF-8',
                 },
@@ -70,7 +71,7 @@ window.onload = () => {
 
         const apiPosts = JSON.parse(localStorage.getItem("apiPosts")) || [];
 
-        const allpost = [...localPost, ...apiPosts];
+        const allpost = [...apiPosts, ...localPost];
 
         allpost.forEach(post => {
 
