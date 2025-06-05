@@ -40,7 +40,7 @@ if (document.getElementById("AddLine")) {
             window.location.href = "index.html";
 
         } catch (error) {
-            console.error("Error al agregar alumno", error);
+            console.error("Error al agregar la linea", error);
         }
     });
 }
