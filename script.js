@@ -7,6 +7,7 @@ function ResetAll() {
     }
 }
 
+// Metodo añade una linea
 if (document.getElementById("AddLine")) {
     document.getElementById("AddLine").addEventListener("submit", async (e) => {
         e.preventDefault();
@@ -44,6 +45,7 @@ if (document.getElementById("AddLine")) {
     });
 }
 
+// Obtiene todos los elementos de la tabla
 window.onload = () => {
     const tabla = document.getElementById("table");
     if (!tabla) return;
@@ -62,6 +64,7 @@ window.onload = () => {
         ShowTable();
     }
 
+    // Muestra la tabla en conjunto
     function ShowTable() {
         tabla.innerHTML = "";
 
@@ -87,7 +90,9 @@ window.onload = () => {
     InizialiceData();
 }
 
-function editRow(id) {
+
+// Metodo de editar la linea elegida
+async function editRow(id) {
     const row = document.getElementById(id);
     if (!row) return;
 
@@ -119,6 +124,7 @@ function editRow(id) {
     }
 }
 
+// Elimina la linea elegida
 async function eliminarPost(id) {
     if (!confirm("Seguro que quiere eliminar la linea?")) return;
 
@@ -143,6 +149,7 @@ async function eliminarPost(id) {
     }
 }
 
+// Metodo para cambiar el contenido de la linea
 async function updatedPosts(id, newTitle, newBody) {
 
     const localPost = JSON.parse(localStorage.getItem("localPosts")) || [];
