@@ -112,6 +112,9 @@ async function editRow(id) {
             .then((response) => response.json())
             .then((json) => console.log(json));
 
+            window.open(
+                
+            );
         const newTitle = prompt("New Title", row.cells[1].innerHTML);
         const newBody = prompt("New Body", row.cells[2].innerHTML);
 
