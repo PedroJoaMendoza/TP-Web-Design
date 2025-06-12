@@ -7,11 +7,31 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Editar Linea</h2>
+            </div>
+            <p id="Mo"></p>
+            <div class="modal-Input">
+                <label for="titlePut">Titulo</label>
+                <input type="text" id="title" placeholder="Titulo">
+            </div>
+            <div class="modal-Input">
+                <label for="bodyPut"></label>
+                <input type="text" id="body" placeholder="Cuerpo">
+            </div>
+        </div>
+    </div>
+    <form id="AddLine">
+            <input type="text" id="title" placeholder="Titulo" required>
+            <input type="text" id="body" placeholder="Cuerpo del texto" required>
+            <button type="submit">Agregar</button>
+        </form>
     <h1>Listado de Textos</h1>
 
     <div class="buttons">
-        <button onclick="window.location.href='add-student.html'">Agregar Linea</button>
         <button onclick="ResetAll()">Reiniciar Data</button>
     </div>
 
@@ -27,7 +47,12 @@
         <tbody id="table"></tbody>
     </table>
     <footer>
-        
+        <div class="buttons">
+            <button onclick="addLine()">Agregar Linea</button>
+            <div class="">
+
+            </div>
+        </div>
     </footer>
 
     <script src="script.js"></script>

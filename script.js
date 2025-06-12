@@ -8,8 +8,10 @@ function ResetAll() {
 }
 
 // Metodo añade una linea
-if (document.getElementById("AddLine")) {
-    document.getElementById("AddLine").addEventListener("submit", async (e) => {
+async function addLine() {
+    
+    if (document.getElementById("AddLine")) {
+        document.getElementById("AddLine").addEventListener("submit", async (e) => {
         e.preventDefault();
         const response = await fetch(`${API_URL}/posts`);
         const posts = await response.json();
@@ -29,15 +31,14 @@ if (document.getElementById("AddLine")) {
                     'Content-type': 'application/json; charset=UTF-8',
                 },
             })
-                .then((response) => response.json())
+            .then((response) => response.json())
                 .then((json) => console.log(json));
-
+                
             const localPosts = JSON.parse(localStorage.getItem("localPosts")) || [];
             localPosts.unshift(newPOST);
             localStorage.setItem("localPost", JSON.stringify(localPosts));
 
             alert("Linea agregado correctamente.");
-            window.location.href = "index.html";
 
         } catch (error) {
             console.error("Error al agregar la linea", error);
@@ -45,6 +46,7 @@ if (document.getElementById("AddLine")) {
     });
 }
 
+}
 // Obtiene todos los elementos de la tabla
 window.onload = () => {
     const tabla = document.getElementById("table");
