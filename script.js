@@ -39,6 +39,7 @@ async function addLine() {
 
       alert("Linea agregado correctamente.");
     } catch (error) {
+      alert("No se pudo agregar la linea.");
       console.error("Error al agregar la linea", error);
     }
   });
@@ -153,4 +154,29 @@ async function updatedPosts(id, newTitle, newBody) {
     apiPosts[idxApi].body = newBody;
     localStorage.setItem("apiPosts", JSON.stringify(apiPosts));
   }
+}
+
+function showModal(id){
+  let originalData;
+  for (let i= 0; i < document.getElementById("table").row.length; i++){
+    const row = document.getElementById("table").row[i];
+    const idCell = row.insertCell[0];
+    if (idCell.innerHTML == id){
+      originalData ={
+        id: idCell.innerHTML,
+        title: row.insertCell[1].innerHTML,
+        body: row.insertCell[2].innerHTML
+      }
+      break;
+    }
+  }
+  document.getElementById('modalId').value = originalData.id;
+  if(document.getElementById(addLine())){
+    document.getElementById('addTitle').value = originalData.title;
+    document.getElementById('addBody').value = originalData.body;
+  }else if(document.getElementById(editRow(originalData.id))){
+    document.getElementById('uptTitle').value = originalData.title;
+    document.getElementById('uptBody').value = originalData.body;
+  }
+document.getElementById('modal-container').style.display = 'block';
 }
