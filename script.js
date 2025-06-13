@@ -1,181 +1,156 @@
 const API_URL = "https://jsonplaceholder.typicode.com";
 
 function ResetAll() {
-    if (confirm("Seguro que quiere reiniciar los datos?")) {
-        localStorage.clear();
-        location.reload();
-    }
+  if (confirm("Seguro que quiere reiniciar los datos?")) {
+    localStorage.clear();
+    location.reload();
+  }
 }
 
 // Metodo añade una linea
 async function addLine() {
-    
-    if (document.getElementById("AddLine")) {
-        document.getElementById("AddLine").addEventListener("submit", async (e) => {
-        e.preventDefault();
-        const response = await fetch(`${API_URL}/posts`);
-        const posts = await response.json();
+  document.getElementById("addModal").style.display = "block";
+  document.getElementById("addLine").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const response = await fetch(`${API_URL}/posts`);
+    const posts = await response.json();
 
-        const lastId = posts.length > 0 ? Math.max(...posts.map(p => p.id)) : 0;
-        const newId = lastId + 1;
-        const newPOST = {
-            id: newId,
-            title: document.getElementById("title").value,
-            body: document.getElementById("body").value,
-        };
-        try {
-            await fetch(`${API_URL}/posts`, {
-                method: "POST",
-                body: JSON.stringify(newPOST),
-                headers: {
-                    'Content-type': 'application/json; charset=UTF-8',
-                },
-            })
-            .then((response) => response.json())
-                .then((json) => console.log(json));
-                
-            const localPosts = JSON.parse(localStorage.getItem("localPosts")) || [];
-            localPosts.unshift(newPOST);
-            localStorage.setItem("localPost", JSON.stringify(localPosts));
+    const lastId = posts.length > 0 ? Math.max(...posts.map((p) => p.id)) : 0;
+    const newId = lastId + 1;
+    const newPOST = {
+      id: newId,
+      title: document.getElementById("addTitle").value,
+      body: document.getElementById("addBody").value,
+    };
+    try {
+      await fetch(`${API_URL}/posts`, {
+        method: "POST",
+        body: JSON.stringify(newPOST),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      })
+        .then((response) => response.json())
+        .then((json) => console.log(json));
 
-            alert("Linea agregado correctamente.");
+      const localPosts = JSON.parse(localStorage.getItem("localPosts")) || [];
+      localPosts.unshift(newPOST);
+      localStorage.setItem("localPost", JSON.stringify(localPosts));
 
-        } catch (error) {
-            console.error("Error al agregar la linea", error);
-        }
-    });
+      alert("Linea agregado correctamente.");
+    } catch (error) {
+      console.error("Error al agregar la linea", error);
+    }
+  });
 }
 
-}
 // Obtiene todos los elementos de la tabla
 window.onload = () => {
-    const tabla = document.getElementById("table");
-    if (!tabla) return;
+  const tabla = document.getElementById("table");
+  if (!tabla) return;
 
-    async function InizialiceData() {
-        if (!localStorage.getItem("apiPosts")) {
-            try {
-                const response = await fetch(`${API_URL}/posts`)
-                const data = await response.json();
-                localStorage.setItem("apiPosts", JSON.stringify(data));
-            } catch (error) {
-                console.error("Error al traer la API", error);
-                return;
-            }
-        }
-        ShowTable();
+  async function InizialiceData() {
+    if (!localStorage.getItem("apiPosts")) {
+      try {
+        const response = await fetch(`${API_URL}/posts`);
+        const data = await response.json();
+        localStorage.setItem("apiPosts", JSON.stringify(data));
+      } catch (error) {
+        console.error("Error al traer la API", error);
+        return;
+      }
     }
+    ShowTable();
+  }
 
-    // Muestra la tabla en conjunto
-    function ShowTable() {
-        tabla.innerHTML = "";
+  // Muestra la tabla en conjunto
+  function ShowTable() {
+    tabla.innerHTML = "";
 
-        const localPost = JSON.parse(localStorage.getItem("localPost")) || [];
+    const localPost = JSON.parse(localStorage.getItem("localPost")) || [];
 
-        const apiPosts = JSON.parse(localStorage.getItem("apiPosts")) || [];
+    const apiPosts = JSON.parse(localStorage.getItem("apiPosts")) || [];
 
-        const allpost = [...apiPosts, ...localPost];
+    const allpost = [...apiPosts, ...localPost];
 
-        allpost.forEach(post => {
+    allpost.forEach((post) => {
+      const row = tabla.insertRow();
+      row.setAttribute("id", post.id);
 
-            const row = tabla.insertRow();
-            row.setAttribute("id", post.id);
+      row.insertCell(0).innerHTML = post.id;
+      row.insertCell(1).innerHTML = post.title;
+      row.insertCell(2).innerHTML = post.body;
 
-            row.insertCell(0).innerHTML = post.id;
-            row.insertCell(1).innerHTML = post.title;
-            row.insertCell(2).innerHTML = post.body;
-
-            const acction = row.insertCell(3);
-            acction.innerHTML = `<button onclick="editRow(${post.id})">Editar</button> <button onclick="eliminarPost(${post.id})">Eliminar</button>`;
-        });
-    }
-    InizialiceData();
-}
-
+      const acction = row.insertCell(3);
+      acction.innerHTML = `<button onclick="editRow(${post.id})">Editar</button> <button onclick="eliminarPost(${post.id})">Eliminar</button>`;
+    });
+  }
+  InizialiceData();
+};
 
 // Metodo de editar la linea elegida
 async function editRow(id) {
-    const row = document.getElementById(id);
-    if (!row) return;
-
-    try {
-        fetch(`${API_URL}/posts/1`, {
-            method: "PUT",
-            body: JSON.stringify({
-                id: 1,
-                title: 'foo',
-                body: 'bar',
-                userId: 1,
-            }),
-            headers: {
-                'Content-type': 'application/json; chartset=UTF-8'
-            }
-        })
-            .then((response) => response.json())
-            .then((json) => console.log(json));
-
-            window.open(
-                
-            );
-        const newTitle = prompt("New Title", row.cells[1].innerHTML);
-        const newBody = prompt("New Body", row.cells[2].innerHTML);
-
-        if (newTitle !== null) row.cells[1].innerHTML = newTitle;
-        if (newBody !== null) row.cells[2].innerHTML = newBody;
-
-        updatedPosts(id, newTitle, newBody);
-    } catch (error) {
-        console.error("Hubo un error al editar la linea");
-    }
+    document.getElementById('editModal').style.display = 'block'
+  const row = document.getElementById(id);
+  try {
+    newTitle = document.getElementById('uptTitle').value;
+    newBody = document.getElementById('uptBody').value;
+    updatedPosts(id, newTitle, newBody);
+  } catch (error) {
+    console.error("Hubo un error al editar la linea");
+  }
 }
 
 // Elimina la linea elegida
 async function eliminarPost(id) {
-    if (!confirm("Seguro que quiere eliminar la linea?")) return;
+  if (!confirm("Seguro que quiere eliminar la linea?")) return;
 
-    try {
-        await fetch(`${API_URL}/posts/${id}`, {
-            method: "DELETE"
-        });
-        const row = document.getElementById(id);
-        if (row) row.remove();
+  try {
+    await fetch(`${API_URL}/posts/${id}`, {
+      method: "DELETE",
+    });
+    const row = document.getElementById(id);
+    if (row) row.remove();
 
-        let localPosts = JSON.parse(localStorage.getItem("localPosts")) || [];
-        localPosts = localPosts.filter(p => p.id !== id);
-        localStorage.setItem("localPosts", JSON.stringify(localPosts));
+    let localPosts = JSON.parse(localStorage.getItem("localPosts")) || [];
+    localPosts = localPosts.filter((p) => p.id !== id);
+    localStorage.setItem("localPosts", JSON.stringify(localPosts));
 
-        let apiPosts = JSON.parse(localStorage.getItem("apiPosts")) || [];
-        apiPosts = apiPosts.filter(p => p.id != id);
-        localStorage.setItem("apiPosts", JSON.stringify(apiPosts));
+    let apiPosts = JSON.parse(localStorage.getItem("apiPosts")) || [];
+    apiPosts = apiPosts.filter((p) => p.id != id);
+    localStorage.setItem("apiPosts", JSON.stringify(apiPosts));
 
-        alert("Linea eliminado.");
-    } catch (error) {
-        console.error("Error al eliminar la linea");
-    }
+    alert("Linea eliminado.");
+  } catch (error) {
+    console.error("Error al eliminar la linea");
+  }
 }
 
 // Metodo para cambiar el contenido de la linea
 async function updatedPosts(id, newTitle, newBody) {
+  const localPost = JSON.parse(localStorage.getItem("localPosts")) || [];
+  const idxLocal = localPost.findIndex((p) => p.id === id);
 
-    const localPost = JSON.parse(localStorage.getItem("localPosts")) || [];
-    const idxLocal = localPost.findIndex(p => p.id === id);
+  if (idxLocal !== -1) {
+    localPost[idxLocal].title = newTitle;
+    localPost[idxLocal].body = newBody;
+    localStorage.setItem("localPosts", JSON.stringify(localPost));
+    return;
+  }
 
-    if (idxLocal !== -1) {
-        localPost[idxLocal].title = newTitle;
-        localPost[idxLocal].body = newBody;
-        localStorage.setItem("localPosts", JSON.stringify(localPost));
-        return;
-    }
+  let apiPosts = JSON.parse(localStorage.getItem("apiPosts")) || [];
+  const idxApi = apiPosts.findIndex((p) => p.id === id);
+  if (idxApi != -1) {
+    await fetch(`${API_URL}/posts/${id}`, {
+      method: "PUT",
+      body: JSON.stringify({
+        title: newTitle,
+        body: newBody
+      })
+    });
 
-    let apiPosts = JSON.parse(localStorage.getItem("apiPosts")) || [];
-    const idxApi = apiPosts.findIndex(p => p.id === id);
-    if (idxApi != -1) {
-        await fetch(`${API_URL}/posts/${id}`, {
-            method: "PUT"
-        });
-
-        apiPosts[idxApi].title = newTitle;
-        apiPosts[idxApi].body = newBody;
-        localStorage.setItem("apiPosts", JSON.stringify(apiPosts));
-    }
+    apiPosts[idxApi].title = newTitle;
+    apiPosts[idxApi].body = newBody;
+    localStorage.setItem("apiPosts", JSON.stringify(apiPosts));
+  }
 }

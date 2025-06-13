@@ -8,31 +8,51 @@
 </head>
 <body>
 
-    <div id="myModal" class="modal">
+    <div id="addModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Añadir Linea</h2>
+            </div>
+            <div class="modal-Input">
+                <label for="titlePut">Titulo</label>
+                <input type="text" name="titlePut" id="addTitle" placeholder="Titulo">
+            </div>
+            <div class="modal-Input">
+                <label for="bodyPut">Cuerpo</label>
+                <input type="text" name="bodyPut" id="addBody" placeholder="Cuerpo">
+            </div>
+            <div class="modal-button">
+                <button onclick="addLine()">Añadir</button>
+                <button onclick="document.getElementById('addModal').style.display = 'none'">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+<div id="editModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
                 <h2>Editar Linea</h2>
             </div>
-            <p id="Mo"></p>
+            <p id="modalId" style="display: none;"></p>
             <div class="modal-Input">
-                <label for="titlePut">Titulo</label>
-                <input type="text" id="title" placeholder="Titulo">
+                <label for="titleUpt">Titulo</label>
+                <input type="text" name="titleUpt" id="uptTitle" placeholder="Titulo">
             </div>
             <div class="modal-Input">
-                <label for="bodyPut"></label>
-                <input type="text" id="body" placeholder="Cuerpo">
+                <label for="bodyUpt">Cuerpo</label>
+                <input type="text" name="bodyUpt" id="uptBody" placeholder="Cuerpo">
+            </div>
+            <div class="modal-button">
+                <button onclick="editRow()">Añadir</button>
+                <button onclick="document.getElementById('editModal').style.display = 'none'">Cerrar</button>
             </div>
         </div>
     </div>
-    <form id="AddLine">
-            <input type="text" id="title" placeholder="Titulo" required>
-            <input type="text" id="body" placeholder="Cuerpo del texto" required>
-            <button type="submit">Agregar</button>
-        </form>
+
     <h1>Listado de Textos</h1>
 
     <div class="buttons">
-        <button onclick="ResetAll()">Reiniciar Data</button>
+        <button onclick="ResetAll()" style="width: 25%; margin-top: 20px;">Reiniciar Data</button>
     </div>
 
     <table>
@@ -48,10 +68,7 @@
     </table>
     <footer>
         <div class="buttons">
-            <button onclick="addLine()">Agregar Linea</button>
-            <div class="">
-
-            </div>
+            <button onclick="addLine()" style="width: 25%; margin-top: 20px;">Agregar Linea</button>
         </div>
     </footer>
 

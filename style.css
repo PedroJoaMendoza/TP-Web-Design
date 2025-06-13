@@ -29,9 +29,63 @@ th{
 button{
     padding: 5px 10px;
     margin: 5px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid black;
+    background-color:#888;
+    color: white;
+    letter-spacing: 1px;
+    width: 100%;
 }
 .buttons{
     display: flexbox ;
     width: 100%;
     text-align: center;
+
+}
+.modal{
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(190, 190, 190,0.8);
+}
+.modal-content{
+    display: flex;
+    background-color: #eee;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.modal-Input{
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+}
+.modal-Input input {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.modal-button{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
 }
