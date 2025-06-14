@@ -13,14 +13,13 @@
             <div class="modal-header">
                 <h2>Añadir Linea</h2>
             </div>
-            <p id="modalId" style="display: none;"></p>
             <div class="modal-Input">
-                <label for="titlePut">Titulo</label>
-                <input type="text" name="titlePut" id="addTitle" placeholder="Titulo">
+                <label for="addTitle">Titulo</label>
+                <input type="text" id="addTitle" placeholder="Titulo">
             </div>
             <div class="modal-Input">
-                <label for="bodyPut">Cuerpo</label>
-                <input type="text" name="bodyPut" id="addBody" placeholder="Cuerpo">
+                <label for="addBody">Cuerpo</label>
+                <input type="text" id="addBody" placeholder="Cuerpo">
             </div>
             <div class="modal-button">
                 <button onclick="addLine()">Añadir</button>
@@ -34,17 +33,17 @@
             <div class="modal-header">
                 <h2>Editar Linea</h2>
             </div>
-            <p id="modalId" style="display: none;"></p>
+            <input type="hidden" id="editId">
             <div class="modal-Input">
-                <label for="titleUpt">Titulo</label>
-                <input type="text" name="titleUpt" id="uptTitle" placeholder="Titulo">
+                <label for="uptTitle">Titulo</label>
+                <input type="text" id="uptTitle" placeholder="Titulo">
             </div>
             <div class="modal-Input">
-                <label for="bodyUpt">Cuerpo</label>
-                <input type="text" name="bodyUpt" id="uptBody" placeholder="Cuerpo">
+                <label for="uptBody">Cuerpo</label>
+                <input type="text" id="uptBody" placeholder="Cuerpo">
             </div>
             <div class="modal-button">
-                <button onclick="editRow()">Añadir</button>
+                <button onclick="saveEdit()">Añadir</button>
                 <button onclick="document.getElementById('editModal').style.display = 'none'">Cerrar</button>
             </div>
         </div>
@@ -69,7 +68,7 @@
     </table>
     <footer>
         <div class="buttons">
-            <button onclick="addLine()" style="width: 25%; margin-top: 20px;">Agregar Linea</button>
+            <button onclick="openModal('add')" style="width: 25%; margin-top: 20px;">Agregar Linea</button>
         </div>
     </footer>
 
